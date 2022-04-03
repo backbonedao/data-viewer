@@ -1,4 +1,4 @@
-const Hyperbee = require('hyperbee')
+const Hyperbee = require('kv')
 
 module.exports = class SimpleAutobee {
   constructor (autobase, opts) {

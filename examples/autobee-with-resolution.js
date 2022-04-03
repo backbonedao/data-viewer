@@ -1,4 +1,4 @@
-const Hyperbee = require('hyperbee')
+const Hyperbee = require('kv')
 
 /*
  * This version of Autobee does very limited conflict resolution:

@@ -1,7 +1,7 @@
 {
-  "name": "autobase",
+  "name": "data-viewer",
   "version": "1.0.0-alpha.8",
-  "description": "Autobase lets you write concise multiwriter data structures with Hypercore",
+  "description": "core/data-viewer",
   "main": "index.js",
   "scripts": {
     "test": "standard && tape test/*.js"
@@ -16,9 +16,9 @@
     "streamx": "^2.10.0"
   },
   "devDependencies": {
-    "corestore": "next",
-    "hyperbee": "^1.5.3",
-    "hypercore": "next",
+    "data-manager": "git+https://github.com/backbonedao/data-manager.git",
+    "kv": "git+https://github.com/backbonedao/kv.git",
+    "data": "git+https://github.com/backbonedao/data.git",
     "latency-stream": "^1.0.0",
     "random-access-memory": "^3.1.2",
     "standard": "^16.0.3",
@@ -26,9 +26,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hypercore-protocol/autobase.git"
+    "url": "https://github.com/backbonedao/data-viewer.git"
   },
   "contributors": [
+    {
+      "name": "backbone://dao",
+      "email": "team@backbonedao.com",
+      "url": "https://backbonedao.com"
+    },
     {
       "name": "Mathias Buus",
       "email": "mathiasbuus@gmail.com",
@@ -42,7 +47,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hypercore-protocol/autobase/issues"
+    "url": "https://github.com/backbonedao/data-viewer/issues"
   },
-  "homepage": "https://github.com/hypercore-protocol/autobase"
+  "homepage": "https://github.com/backbonedao/data-viewer"
 }
