@@ -1,4 +1,4 @@
-const Hyperbee = require('kv')
+const Hyperbee = require('data-db')
 
 /*
  * This version of Autobee does very limited conflict resolution:

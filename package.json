@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "data-manager": "git+https://github.com/backbonedao/data-manager.git",
-    "kv": "git+https://github.com/backbonedao/kv.git",
+    "data-db": "git+https://github.com/backbonedao/data-db.git",
     "data": "git+https://github.com/backbonedao/data.git",
     "latency-stream": "^1.0.0",
     "random-access-memory": "^3.1.2",
