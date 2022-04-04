@@ -1,5 +1,5 @@
 {
-  "name": "data-viewer",
+  "name": "@backbonedao/data-viewer",
   "version": "1.0.0-alpha.8",
   "description": "core/data-viewer",
   "main": "index.js",
