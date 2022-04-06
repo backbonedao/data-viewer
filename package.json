@@ -16,9 +16,9 @@
     "streamx": "^2.10.0"
   },
   "devDependencies": {
-    "data-manager": "git+https://github.com/backbonedao/data-manager.git",
-    "data-db": "git+https://github.com/backbonedao/data-db.git",
-    "data": "git+https://github.com/backbonedao/data.git",
+    "data-manager": "github:backbonedao/data-manager",
+    "data-db": "github:backbonedao/data-db",
+    "data": "github:backbonedao/data",
     "latency-stream": "^1.0.0",
     "random-access-memory": "^3.1.2",
     "standard": "^16.0.3",
@@ -45,7 +45,7 @@
       "url": "https://andrewosh.com"
     }
   ],
-  "license": "MIT",
+  "license": "AGPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/backbonedao/data-viewer/issues"
   },
