@@ -2,7 +2,7 @@ const test = require('tape')
 const Hypercore = require('data')
 const ram = require('random-access-memory')
 
-const Autobase = require('..')
+const Autobase = require('../..')
 
 test('should throw if hypercore valueEncoding is utf-8', async t => {
   const coreWithUtf8 = new Hypercore(ram, { valueEncoding: 'utf-8' })
