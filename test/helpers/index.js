@@ -1,3 +1,5 @@
+const Buffer = require('b4a')
+
 async function causalValues (base) {
   return collect(base.createCausalStream())
 }
@@ -30,7 +32,7 @@ function debugInputNode (inputNode) {
 }
 
 function bufferize (arr) {
-  return arr.map(b => Buffer.from(b))
+  return Buffer.concat(arr.map(b => Buffer.from(b)))
 }
 
 module.exports = {

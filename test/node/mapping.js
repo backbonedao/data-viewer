@@ -34,7 +34,7 @@ test('map with stateless mapper', async t => {
   }
 
   const outputNodes = await linearizedValues(base.view)
-  t.same(outputNodes.map(v => v.value), bufferize(['A0', 'B1', 'B0', 'C2', 'C1', 'C0']))
+  t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['A0', 'B1', 'B0', 'C2', 'C1', 'C0']))
 
   t.end()
 })
@@ -62,7 +62,7 @@ test('mapping into batches yields the correct clock on reads', async t => {
   await base.append(['c0', 'c1', 'c2'], [], writerC)
 
   const outputNodes = await linearizedValues(base.view)
-  t.same(outputNodes.map(v => v.value), bufferize(['A0', 'B1', 'B0', 'C2', 'C1', 'C0']))
+  t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['A0', 'B1', 'B0', 'C2', 'C1', 'C0']))
 
   t.end()
 })

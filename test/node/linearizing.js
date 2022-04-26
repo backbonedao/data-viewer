@@ -30,7 +30,7 @@ test('linearizing - three independent forks', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
     t.same(base.view.status.added, 6)
     t.same(base.view.status.removed, 0)
     t.same(output.length, 6)
@@ -43,7 +43,7 @@ test('linearizing - three independent forks', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-    t.same(outputNodes.map(v => v.value), bufferize(['b1', 'b0', 'c2', 'c1', 'c0', 'a3', 'a2', 'a1', 'a0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['b1', 'b0', 'c2', 'c1', 'c0', 'a3', 'a2', 'a1', 'a0']))
     t.same(base.view.status.added, 9)
     t.same(base.view.status.removed, 6)
     t.same(output.length, 9)
@@ -77,7 +77,7 @@ test('linearizing - causal writes preserve clock', async t => {
 
   const outputNodes = await linearizedValues(base.view)
 
-  t.same(outputNodes.map(v => v.value), bufferize(['c2', 'c1', 'c0', 'b1', 'b0', 'a0']))
+  t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['c2', 'c1', 'c0', 'b1', 'b0', 'a0']))
   t.same(base.view.status.added, 6)
   t.same(base.view.status.removed, 0)
   t.same(output.length, 6)
@@ -116,7 +116,7 @@ test('linearizing - does not over-truncate', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c4', 'c3', 'c2', 'c1', 'c0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c4', 'c3', 'c2', 'c1', 'c0']))
     t.same(base.view.status.added, 8)
     t.same(base.view.status.removed, 0)
     t.same(output.length, 8)
@@ -129,7 +129,7 @@ test('linearizing - does not over-truncate', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-    t.same(outputNodes.map(v => v.value), bufferize(['b1', 'b0', 'a3', 'a2', 'a1', 'a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['b1', 'b0', 'a3', 'a2', 'a1', 'a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
     t.same(base.view.status.added, 6)
     t.same(base.view.status.removed, 3)
     t.same(output.length, 11)
@@ -140,7 +140,7 @@ test('linearizing - does not over-truncate', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-    t.same(outputNodes.map(v => v.value), bufferize(['b2', 'b1', 'b0', 'a3', 'a2', 'a1', 'a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['b2', 'b1', 'b0', 'a3', 'a2', 'a1', 'a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
     t.same(base.view.status.added, 1)
     t.same(base.view.status.removed, 0)
     t.same(output.length, 12)
@@ -174,7 +174,7 @@ test('linearizing - can cut out a writer', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c4', 'c3', 'c2', 'c1', 'c0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c4', 'c3', 'c2', 'c1', 'c0']))
     t.same(base.view.status.added, 8)
     t.same(base.view.status.removed, 0)
     t.same(output.length, 8)
@@ -185,7 +185,7 @@ test('linearizing - can cut out a writer', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
     t.same(base.view.status.added, 1) // a0 is reindexed
     t.same(base.view.status.removed, 3) // a0 is popped and reindexed
     t.same(output.length, 6)
@@ -216,7 +216,7 @@ test('linearizing - can cut out a writer from the back', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b4', 'b3', 'b2', 'b1', 'b0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b4', 'b3', 'b2', 'b1', 'b0']))
     t.same(base.view.status.added, 6)
     t.same(base.view.status.removed, 0)
     t.same(output.length, 6)
@@ -226,7 +226,7 @@ test('linearizing - can cut out a writer from the back', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-    t.same(outputNodes.map(v => v.value), bufferize(['a0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0']))
     t.same(base.view.status.added, 1) // a0 is reindexed
     t.same(base.view.status.removed, 6) // a0 is popped and reindexed
     t.same(output.length, 1)
@@ -257,7 +257,7 @@ test('linearizing - can cut out a writer from the front', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b4', 'b3', 'b2', 'b1', 'b0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b4', 'b3', 'b2', 'b1', 'b0']))
     t.same(base.view.status.added, 6)
     t.same(base.view.status.removed, 0)
     t.same(output.length, 6)
@@ -267,7 +267,7 @@ test('linearizing - can cut out a writer from the front', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-    t.same(outputNodes.map(v => v.value), bufferize(['b4', 'b3', 'b2', 'b1', 'b0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['b4', 'b3', 'b2', 'b1', 'b0']))
     t.same(base.view.status.added, 0) // a0 is removed
     t.same(base.view.status.removed, 1) // a0 is removed
     t.same(output.length, 5)
@@ -301,7 +301,7 @@ test('linearizing - can cut out a writer, causal writes', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-    t.same(outputNodes.map(v => v.value), bufferize(['b1', 'b0', 'a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['b1', 'b0', 'a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
     t.same(base.view.status.added, 8)
     t.same(base.view.status.removed, 0)
     t.same(output.length, 8)
@@ -312,7 +312,7 @@ test('linearizing - can cut out a writer, causal writes', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
     t.same(base.view.status.added, 0) // b1 and b0 are removed
     t.same(base.view.status.removed, 2) // b1 and b0 are removed
     t.same(output.length, 6)
@@ -342,7 +342,7 @@ test('linearizing - can cut out a writer, causal writes interleaved', async t =>
 
   {
     const outputNodes = await linearizedValues(base.view)
-    t.same(outputNodes.map(v => v.value), bufferize(['a5', 'b4', 'a3', 'b2', 'a1', 'b0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a5', 'b4', 'a3', 'b2', 'a1', 'b0']))
     t.same(base.view.status.added, 6)
     t.same(base.view.status.removed, 0)
     t.same(output.length, 6)
@@ -352,7 +352,7 @@ test('linearizing - can cut out a writer, causal writes interleaved', async t =>
 
   {
     const outputNodes = await linearizedValues(base.view)
-    t.same(outputNodes.map(v => v.value), bufferize(['a5', 'a3', 'a1']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a5', 'a3', 'a1']))
     t.same(base.view.status.added, 3)
     t.same(base.view.status.removed, 6)
     t.same(output.length, 3)
@@ -432,7 +432,7 @@ test('linearizing - double-linearizing is a no-op', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
     t.same(base.view.status.added, 6)
     t.same(base.view.status.removed, 0)
     t.same(output.length, 6)
@@ -440,7 +440,7 @@ test('linearizing - double-linearizing is a no-op', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
     t.same(base.view.status.added, 0)
     t.same(base.view.status.removed, 0)
     t.same(output.length, 6)
@@ -779,7 +779,7 @@ test('linearizing - linearize operations are debounced', async t => {
   }
   outputNodes.reverse()
 
-  t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
+  t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
   t.same(output.length, 6)
 
   t.end()
@@ -859,7 +859,7 @@ test('can dynamically add a default output', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
     t.same(base.view.status.added, 6)
     t.same(base.view.status.removed, 0)
     t.same(output.length, 6)

@@ -27,7 +27,7 @@ test('linearizes short branches on long branches', async t => {
 
   {
     const output = await causalValues(base)
-    t.same(output.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
+    t.same(bufferize(output.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
   }
 
   // Add 3 more records to A -- should switch fork ordering
@@ -37,7 +37,7 @@ test('linearizes short branches on long branches', async t => {
 
   {
     const output = await causalValues(base)
-    t.same(output.map(v => v.value), bufferize(['b1', 'b0', 'c2', 'c1', 'c0', 'a3', 'a2', 'a1', 'a0']))
+    t.same(bufferize(output.map(v => v.value)), bufferize(['b1', 'b0', 'c2', 'c1', 'c0', 'a3', 'a2', 'a1', 'a0']))
   }
 
   t.end()
@@ -65,7 +65,7 @@ test('causal writes', async t => {
 
   {
     const output = await causalValues(base)
-    t.same(output.map(v => v.value), bufferize(['b1', 'b0', 'a0', 'c3', 'c2', 'c1', 'c0']))
+    t.same(bufferize(output.map(v => v.value)), bufferize(['b1', 'b0', 'a0', 'c3', 'c2', 'c1', 'c0']))
   }
 
   // Add 4 more records to A -- should switch fork ordering
@@ -75,7 +75,7 @@ test('causal writes', async t => {
 
   {
     const output = await causalValues(base)
-    t.same(output.map(v => v.value), bufferize(['b1', 'b0', 'c3', 'c2', 'c1', 'c0', 'a4', 'a3', 'a2', 'a1', 'a0']))
+    t.same(bufferize(output.map(v => v.value)), bufferize(['b1', 'b0', 'c3', 'c2', 'c1', 'c0', 'a4', 'a3', 'a2', 'a1', 'a0']))
   }
 
   t.end()
@@ -98,7 +98,7 @@ test('manually specifying clocks', async t => {
   await base.append('b2', await base.latest(writerB), writerB)
 
   const output = await causalValues(base)
-  t.same(output.map(v => v.value), bufferize(['b2', 'b1', 'b0', 'a1', 'a0']))
+  t.same(bufferize(output.map(v => v.value)), bufferize(['b2', 'b1', 'b0', 'a1', 'a0']))
 
   t.end()
 })
@@ -124,7 +124,7 @@ test('supports a local input and default latest clocks', async t => {
   await base1.append('a3', await base1.latest())
 
   const output = await causalValues(base1)
-  t.same(output.map(v => v.value), bufferize(['a3', 'b1', 'a2', 'b0', 'a1', 'a0']))
+  t.same(bufferize(output.map(v => v.value)), bufferize(['a3', 'b1', 'a2', 'b0', 'a1', 'a0']))
   t.same(output[0].change, writerA.key)
   t.same(output[1].change, writerB.key)
 
@@ -158,7 +158,7 @@ test('adding duplicate inputs is a no-op', async t => {
   await base1.append('a3', await base1.latest())
 
   const output = await causalValues(base1)
-  t.same(output.map(v => v.value), bufferize(['a3', 'b1', 'a2', 'b0', 'a1', 'a0']))
+  t.same(bufferize(output.map(v => v.value)), bufferize(['a3', 'b1', 'a2', 'b0', 'a1', 'a0']))
   t.same(output[0].change, writerA.key)
   t.same(output[1].change, writerB.key)
 
@@ -178,7 +178,7 @@ test('dynamically adding/removing inputs', async t => {
   }
   {
     const output = await causalValues(base)
-    t.same(output.map(v => v.value), bufferize(['a0']))
+    t.same(bufferize(output.map(v => v.value)), bufferize(['a0']))
   }
 
   const writerB = new Hypercore(ram)
@@ -189,7 +189,7 @@ test('dynamically adding/removing inputs', async t => {
   }
   {
     const output = await causalValues(base)
-    t.same(output.map(v => v.value), bufferize(['a0', 'b1', 'b0']))
+    t.same(bufferize(output.map(v => v.value)), bufferize(['a0', 'b1', 'b0']))
   }
 
   const writerC = new Hypercore(ram)
@@ -200,7 +200,7 @@ test('dynamically adding/removing inputs', async t => {
   }
   {
     const output = await causalValues(base)
-    t.same(output.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
+    t.same(bufferize(output.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
   }
 
   // Add 3 more records to A -- should switch fork ordering
@@ -210,14 +210,14 @@ test('dynamically adding/removing inputs', async t => {
 
   {
     const output = await causalValues(base)
-    t.same(output.map(v => v.value), bufferize(['b1', 'b0', 'c2', 'c1', 'c0', 'a3', 'a2', 'a1', 'a0']))
+    t.same(bufferize(output.map(v => v.value)), bufferize(['b1', 'b0', 'c2', 'c1', 'c0', 'a3', 'a2', 'a1', 'a0']))
   }
 
   await base.removeInput(writerC)
 
   {
     const output = await causalValues(base)
-    t.same(output.map(v => v.value), bufferize(['b1', 'b0', 'a3', 'a2', 'a1', 'a0']))
+    t.same(bufferize(output.map(v => v.value)), bufferize(['b1', 'b0', 'a3', 'a2', 'a1', 'a0']))
   }
 
   t.end()
@@ -236,7 +236,7 @@ test('dynamically adding inputs does not alter existing causal streams', async t
   }
   {
     const output = await causalValues(base)
-    t.same(output.map(v => v.value), bufferize(['a0']))
+    t.same(bufferize(output.map(v => v.value)), bufferize(['a0']))
   }
 
   const writerB = new Hypercore(ram)
@@ -256,7 +256,7 @@ test('dynamically adding inputs does not alter existing causal streams', async t
   for await (const node of stream) { // The stream should not have writerC's nodes
     output.push(node)
   }
-  t.same(output.map(v => v.value), bufferize(['a0', 'b1', 'b0']))
+  t.same(bufferize(output.map(v => v.value)), bufferize(['a0', 'b1', 'b0']))
 
   t.end()
 })

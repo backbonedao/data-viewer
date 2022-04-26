@@ -21,7 +21,7 @@ test('batches array-valued appends using partial input nodes', async t => {
 
   {
     const output = await causalValues(base)
-    t.same(output.map(v => v.value), bufferize(['b1', 'b0', 'c2', 'c1', 'c0', 'a0']))
+    t.same(bufferize(output.map(v => v.value)), bufferize(['b1', 'b0', 'c2', 'c1', 'c0', 'a0']))
   }
 
   // Add 4 more records to A -- should switch fork ordering
@@ -31,7 +31,7 @@ test('batches array-valued appends using partial input nodes', async t => {
 
   {
     const output = await causalValues(base)
-    t.same(output.map(v => v.value), bufferize(['b1', 'b0', 'c2', 'c1', 'c0', 'a4', 'a3', 'a2', 'a1', 'a0']))
+    t.same(bufferize(output.map(v => v.value)), bufferize(['b1', 'b0', 'c2', 'c1', 'c0', 'a4', 'a3', 'a2', 'a1', 'a0']))
   }
 
   t.end()
