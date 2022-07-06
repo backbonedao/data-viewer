@@ -1,12 +1,9 @@
 const test = require('tape')
-const Hypercore = require('data')
+const Hypercore = require('hypercore')
 const ram = require('random-access-memory')
 
 const { bufferize, linearizedValues } = require('../helpers')
-<<<<<<<< HEAD:test/node/linearizing.js
-========
 const { decodeKeys } = require('../../lib/nodes/messages')
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
 const Autobase = require('../..')
 
 test('local linearizing - three independent forks', async t => {
@@ -35,15 +32,9 @@ test('local linearizing - three independent forks', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-<<<<<<<< HEAD:test/node/linearizing.js
     t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
-    t.same(base.view.status.added, 6)
-    t.same(base.view.status.removed, 0)
-========
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
     t.same(base.view.status.appended, 6)
     t.same(base.view.status.truncated, 0)
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
     t.same(output.length, 6)
   }
 
@@ -54,15 +45,9 @@ test('local linearizing - three independent forks', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-<<<<<<<< HEAD:test/node/linearizing.js
     t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['b1', 'b0', 'c2', 'c1', 'c0', 'a3', 'a2', 'a1', 'a0']))
-    t.same(base.view.status.added, 9)
-    t.same(base.view.status.removed, 6)
-========
-    t.same(outputNodes.map(v => v.value), bufferize(['b1', 'b0', 'c2', 'c1', 'c0', 'a3', 'a2', 'a1', 'a0']))
     t.same(base.view.status.appended, 9)
     t.same(base.view.status.truncated, 6)
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
     t.same(output.length, 9)
   }
 
@@ -95,15 +80,9 @@ test('local linearizing - causal writes preserve clock', async t => {
 
   const outputNodes = await linearizedValues(base.view)
 
-<<<<<<<< HEAD:test/node/linearizing.js
   t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['c2', 'c1', 'c0', 'b1', 'b0', 'a0']))
-  t.same(base.view.status.added, 6)
-  t.same(base.view.status.removed, 0)
-========
-  t.same(outputNodes.map(v => v.value), bufferize(['c2', 'c1', 'c0', 'b1', 'b0', 'a0']))
   t.same(base.view.status.appended, 6)
   t.same(base.view.status.truncated, 0)
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
   t.same(output.length, 6)
 
   for (let i = 1; i < base.view.length; i++) {
@@ -141,15 +120,9 @@ test('local linearizing - does not over-truncate', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-<<<<<<<< HEAD:test/node/linearizing.js
     t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c4', 'c3', 'c2', 'c1', 'c0']))
-    t.same(base.view.status.added, 8)
-    t.same(base.view.status.removed, 0)
-========
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c4', 'c3', 'c2', 'c1', 'c0']))
     t.same(base.view.status.appended, 8)
     t.same(base.view.status.truncated, 0)
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
     t.same(output.length, 8)
   }
 
@@ -160,15 +133,9 @@ test('local linearizing - does not over-truncate', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-<<<<<<<< HEAD:test/node/linearizing.js
     t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['b1', 'b0', 'a3', 'a2', 'a1', 'a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
-    t.same(base.view.status.added, 6)
-    t.same(base.view.status.removed, 3)
-========
-    t.same(outputNodes.map(v => v.value), bufferize(['b1', 'b0', 'a3', 'a2', 'a1', 'a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
     t.same(base.view.status.appended, 6)
     t.same(base.view.status.truncated, 3)
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
     t.same(output.length, 11)
   }
 
@@ -177,15 +144,9 @@ test('local linearizing - does not over-truncate', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-<<<<<<<< HEAD:test/node/linearizing.js
     t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['b2', 'b1', 'b0', 'a3', 'a2', 'a1', 'a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
-    t.same(base.view.status.added, 1)
-    t.same(base.view.status.removed, 0)
-========
-    t.same(outputNodes.map(v => v.value), bufferize(['b2', 'b1', 'b0', 'a3', 'a2', 'a1', 'a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
     t.same(base.view.status.appended, 1)
     t.same(base.view.status.truncated, 0)
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
     t.same(output.length, 12)
   }
 
@@ -218,15 +179,9 @@ test('local linearizing - can purge', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-<<<<<<<< HEAD:test/node/linearizing.js
     t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c4', 'c3', 'c2', 'c1', 'c0']))
-    t.same(base.view.status.added, 8)
-    t.same(base.view.status.removed, 0)
-========
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c4', 'c3', 'c2', 'c1', 'c0']))
     t.same(base.view.status.appended, 8)
     t.same(base.view.status.truncated, 0)
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
     t.same(output.length, 8)
   }
 
@@ -235,15 +190,9 @@ test('local linearizing - can purge', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-<<<<<<<< HEAD:test/node/linearizing.js
     t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
-    t.same(base.view.status.added, 1) // a0 is reindexed
-    t.same(base.view.status.removed, 3) // a0 is popped and reindexed
-========
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
     t.same(base.view.status.appended, 1) // a0 is reindexed
     t.same(base.view.status.truncated, 3) // a0 is popped and reindexed
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
     t.same(output.length, 6)
   }
 
@@ -273,15 +222,9 @@ test('local linearizing - can purge from the back', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-<<<<<<<< HEAD:test/node/linearizing.js
     t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b4', 'b3', 'b2', 'b1', 'b0']))
-    t.same(base.view.status.added, 6)
-    t.same(base.view.status.removed, 0)
-========
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b4', 'b3', 'b2', 'b1', 'b0']))
     t.same(base.view.status.appended, 6)
     t.same(base.view.status.truncated, 0)
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
     t.same(output.length, 6)
   }
 
@@ -289,15 +232,9 @@ test('local linearizing - can purge from the back', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-<<<<<<<< HEAD:test/node/linearizing.js
     t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0']))
-    t.same(base.view.status.added, 1) // a0 is reindexed
-    t.same(base.view.status.removed, 6) // a0 is popped and reindexed
-========
-    t.same(outputNodes.map(v => v.value), bufferize(['a0']))
     t.same(base.view.status.appended, 1) // a0 is reindexed
     t.same(base.view.status.truncated, 6) // a0 is popped and reindexed
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
     t.same(output.length, 1)
   }
 
@@ -327,15 +264,9 @@ test('local linearizing - can purge from the front', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-<<<<<<<< HEAD:test/node/linearizing.js
     t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b4', 'b3', 'b2', 'b1', 'b0']))
-    t.same(base.view.status.added, 6)
-    t.same(base.view.status.removed, 0)
-========
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b4', 'b3', 'b2', 'b1', 'b0']))
     t.same(base.view.status.appended, 6)
     t.same(base.view.status.truncated, 0)
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
     t.same(output.length, 6)
   }
 
@@ -343,15 +274,9 @@ test('local linearizing - can purge from the front', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-<<<<<<<< HEAD:test/node/linearizing.js
     t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['b4', 'b3', 'b2', 'b1', 'b0']))
-    t.same(base.view.status.added, 0) // a0 is removed
-    t.same(base.view.status.removed, 1) // a0 is removed
-========
-    t.same(outputNodes.map(v => v.value), bufferize(['b4', 'b3', 'b2', 'b1', 'b0']))
     t.same(base.view.status.appended, 0) // a0 is removed
     t.same(base.view.status.truncated, 1) // a0 is removed
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
     t.same(output.length, 5)
   }
 
@@ -384,15 +309,9 @@ test('local linearizing - can purge, causal writes', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-<<<<<<<< HEAD:test/node/linearizing.js
     t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['b1', 'b0', 'a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
-    t.same(base.view.status.added, 8)
-    t.same(base.view.status.removed, 0)
-========
-    t.same(outputNodes.map(v => v.value), bufferize(['b1', 'b0', 'a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
     t.same(base.view.status.appended, 8)
     t.same(base.view.status.truncated, 0)
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
     t.same(output.length, 8)
   }
 
@@ -401,15 +320,9 @@ test('local linearizing - can purge, causal writes', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-<<<<<<<< HEAD:test/node/linearizing.js
     t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
-    t.same(base.view.status.added, 0) // b1 and b0 are removed
-    t.same(base.view.status.removed, 2) // b1 and b0 are removed
-========
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'c4', 'c3', 'c2', 'c1', 'c0']))
     t.same(base.view.status.appended, 0) // b1 and b0 are removed
     t.same(base.view.status.truncated, 2) // b1 and b0 are removed
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
     t.same(output.length, 6)
   }
 
@@ -441,15 +354,9 @@ test.skip('local linearizing - can purge, causal writes interleaved', async t =>
 
   {
     const outputNodes = await linearizedValues(base.view)
-<<<<<<<< HEAD:test/node/linearizing.js
     t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a5', 'b4', 'a3', 'b2', 'a1', 'b0']))
-    t.same(base.view.status.added, 6)
-    t.same(base.view.status.removed, 0)
-========
-    t.same(outputNodes.map(v => v.value), bufferize(['a5', 'b4', 'a3', 'b2', 'a1', 'b0']))
     t.same(base.view.status.appended, 6)
     t.same(base.view.status.truncated, 0)
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
     t.same(output.length, 6)
   }
 
@@ -457,15 +364,9 @@ test.skip('local linearizing - can purge, causal writes interleaved', async t =>
 
   {
     const outputNodes = await linearizedValues(base.view)
-<<<<<<<< HEAD:test/node/linearizing.js
     t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a5', 'a3', 'a1']))
-    t.same(base.view.status.added, 3)
-    t.same(base.view.status.removed, 6)
-========
-    t.same(outputNodes.map(v => v.value), bufferize(['a5', 'a3', 'a1']))
     t.same(base.view.status.appended, 3)
     t.same(base.view.status.truncated, 6)
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
     t.same(output.length, 3)
   }
 
@@ -545,29 +446,17 @@ test('local linearizing - double-linearizing is a no-op', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-<<<<<<<< HEAD:test/node/linearizing.js
     t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
-    t.same(base.view.status.added, 6)
-    t.same(base.view.status.removed, 0)
-========
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
     t.same(base.view.status.appended, 6)
     t.same(base.view.status.truncated, 0)
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
     t.same(output.length, 6)
   }
 
   {
     const outputNodes = await linearizedValues(base.view)
-<<<<<<<< HEAD:test/node/linearizing.js
     t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
-    t.same(base.view.status.added, 0)
-    t.same(base.view.status.removed, 0)
-========
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
     t.same(base.view.status.appended, 0)
     t.same(base.view.status.truncated, 0)
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
     t.same(output.length, 6)
   }
 
@@ -663,96 +552,6 @@ test('local linearizing - can dynamically add a default output', async t => {
     autostart: true,
     eagerUpdate: false
   })
-<<<<<<<< HEAD:test/node/linearizing.js
-
-  for (let i = 0; i < 1; i++) {
-    await base.append(`a${i}`, [], writerA)
-  }
-  for (let i = 0; i < 2; i++) {
-    await base.append(`b${i}`, [], writerB)
-  }
-  for (let i = 0; i < 3; i++) {
-    await base.append(`c${i}`, [], writerC)
-  }
-
-  await Promise.all([
-    base.view.update(),
-    base.view.update(),
-    base.view.update(),
-    base.view.update()
-  ])
-
-  const outputNodes = []
-  for (let i = 0; i < base.view.length; i++) {
-    outputNodes.push(await base.view.get(i))
-  }
-  outputNodes.reverse()
-
-  t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
-  t.same(output.length, 6)
-
-  t.end()
-})
-
-test('closing a view will cleanup event listeners', async t => {
-  const output1 = new Hypercore(ram)
-  const output2 = new Hypercore(ram)
-  const writerA = new Hypercore(ram)
-  const writerB = new Hypercore(ram)
-  const writerC = new Hypercore(ram)
-
-  const inputs = [writerA, writerB, writerC]
-  const base1 = new Autobase({
-    inputs,
-    outputs: [output1]
-  })
-  const base2 = new Autobase({
-    inputs,
-    outputs: [output2]
-  })
-
-  for (let i = 0; i < 1; i++) {
-    await base1.append(`a${i}`, [], writerA)
-  }
-  for (let i = 0; i < 2; i++) {
-    await base1.append(`b${i}`, [], writerB)
-  }
-  for (let i = 0; i < 3; i++) {
-    await base1.append(`c${i}`, [], writerC)
-  }
-
-  t.same(writerA.listenerCount('append'), 2)
-  t.same(output1.listenerCount('truncate'), 1)
-  t.same(output2.listenerCount('truncate'), 1)
-
-  await base1.close()
-
-  t.same(writerA.listenerCount('append'), 1)
-  t.same(output1.listenerCount('truncate'), 0)
-
-  await base2.close()
-
-  t.same(writerA.listenerCount('append'), 0)
-  t.same(output2.listenerCount('truncate'), 0)
-
-  t.end()
-})
-
-test('can dynamically add a default output', async t => {
-  const output = new Hypercore(ram)
-  const writerA = new Hypercore(ram)
-  const writerB = new Hypercore(ram)
-  const writerC = new Hypercore(ram)
-
-  const base = new Autobase({
-    inputs: [writerA, writerB, writerC],
-    autostart: true
-  })
-
-  t.false(base.view.writable)
-
-========
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
   base.localOutput = output
 
   // Create three independent forks
@@ -768,15 +567,9 @@ test('can dynamically add a default output', async t => {
 
   {
     const outputNodes = await linearizedValues(base.view)
-<<<<<<<< HEAD:test/node/linearizing.js
     t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
-    t.same(base.view.status.added, 6)
-    t.same(base.view.status.removed, 0)
-========
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
     t.same(base.view.status.appended, 6)
     t.same(base.view.status.truncated, 0)
->>>>>>>> 1e21678cef17e7ff25bba8b0ade8dff96d210528:test/common/local-linearizing.js
     t.same(output.length, 6)
   }
 
@@ -863,7 +656,7 @@ test('local linearizing - creating two branch snapshots with a common update clo
 
   {
     const outputNodes = await linearizedValues(snapshot1, { update: false })
-    t.same(outputNodes.map(v => v.value), bufferize([]))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize([]))
     t.same(output.length, 6)
   }
 
@@ -871,13 +664,13 @@ test('local linearizing - creating two branch snapshots with a common update clo
 
   {
     const outputNodes = await linearizedValues(snapshot1, { update: false })
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
     t.same(output.length, 6)
   }
 
   {
     const outputNodes = await linearizedValues(snapshot2, { update: false })
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
     t.same(output.length, 6)
   }
 
@@ -890,13 +683,13 @@ test('local linearizing - creating two branch snapshots with a common update clo
 
   {
     const outputNodes = await linearizedValues(snapshot3, { update: false })
-    t.same(outputNodes.map(v => v.value), bufferize(['b1', 'b0', 'c2', 'c1', 'c0', 'a3', 'a2', 'a1', 'a0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['b1', 'b0', 'c2', 'c1', 'c0', 'a3', 'a2', 'a1', 'a0']))
     t.same(output.length, 9)
   }
 
   {
     const outputNodes = await linearizedValues(snapshot2, { update: false })
-    t.same(outputNodes.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
+    t.same(bufferize(outputNodes.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
     t.same(output.length, 9)
   }
 
@@ -926,7 +719,7 @@ test('local linearizing - consistent reads with a pre-update snapshot', async t 
   for (let i = 0; i < snapshot.length; i++) {
     nodes.push(await snapshot.get(i))
   }
-  t.same(nodes, bufferize(['a0', 'b0']))
+  t.same(bufferize(nodes), bufferize(['a0', 'b0']))
 
   t.end()
 })

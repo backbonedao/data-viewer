@@ -340,17 +340,17 @@ test('causal stream with clock', async t => {
 
   {
     const output = await causalValues(base, clock1)
-    t.same(output.map(v => v.value), bufferize(['a0']))
+    t.same(bufferize(output.map(v => v.value)), bufferize(['a0']))
   }
 
   {
     const output = await causalValues(base, clock2)
-    t.same(output.map(v => v.value), bufferize(['a0', 'b1', 'b0']))
+    t.same(bufferize(output.map(v => v.value)), bufferize(['a0', 'b1', 'b0']))
   }
 
   {
     const output = await causalValues(base, clock3)
-    t.same(output.map(v => v.value), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
+    t.same(bufferize(output.map(v => v.value)), bufferize(['a0', 'b1', 'b0', 'c2', 'c1', 'c0']))
   }
 
   t.end()

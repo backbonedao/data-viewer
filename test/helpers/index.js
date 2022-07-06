@@ -1,7 +1,7 @@
 const Buffer = require('b4a')
 
-async function causalValues (base) {
-  return collect(base.createCausalStream())
+async function causalValues (base, clock) {
+  return collect(base.createCausalStream({ clock }))
 }
 
 async function collect (stream, map) {
@@ -12,9 +12,9 @@ async function collect (stream, map) {
   return buf
 }
 
-async function linearizedValues (index) {
+async function linearizedValues (index, opts = {}) {
   const buf = []
-  await index.update()
+  if (opts.update !== false) await index.update()
   for (let i = index.length - 1; i >= 0; i--) {
     const indexNode = await index.get(i)
     buf.push(indexNode)
